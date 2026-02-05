@@ -5,36 +5,52 @@
 #include <openssl/sha.h>
 #include <sys/stat.h>
 
-/*
-void SHA256sum_files(const char *file_name) {
+void SHA256test(const char *dir_file1 , const char *dir_file2)
+{
     //FUNCTION ___STATUS(OK)___
-
-    FILE *f = fopen(file_name, "rb");
-    if (!f) {
-        printf("error : cannot acces folder ...");
-        return 1;
-    }
-
-    SHA256_CTX ctx;
-    SHA256_Init(&ctx);
-
+    
+    unsigned char hash1[SHA256_DIGEST_LENGTH];
+    unsigned char hash2[SHA256_DIGEST_LENGTH];
     unsigned char buffer[1024];
     size_t lu;
-    while ((lu = fread(buffer, 1, sizeof(buffer), f)) > 0) {
-        SHA256_Update(&ctx, buffer, lu);
+
+    FILE *f1 = fopen(dir_file1, "rb");
+    if (!f1) {
+        perror("Error_file_1 : ");
+        return;
     }
 
-    unsigned char hash[SHA256_DIGEST_LENGTH];
-    SHA256_Final(hash, &ctx);
+    FILE *f2 = fopen(dir_file2, "rb");
+    if (!f2) {
+        perror("Error_file_2 : ");
+        return;
+    }
 
-    fclose(f);
+    SHA256_CTX ctx1;
+    SHA256_Init(&ctx1);
+    while ((lu = fread(buffer, 1, sizeof(buffer), f1)) > 0) {
+        SHA256_Update(&ctx1, buffer, lu);
+    }
+    SHA256_Final(hash1, &ctx1);
 
-    //printf("SHA256(%s) = ", file_name);
-    for (int i = 0; i < SHA256_DIGEST_LENGTH; i++)
-        printf("%02x", hash[i]);
-    printf("\n");
+    SHA256_CTX ctx2;
+    SHA256_Init(&ctx2);
+    while ((lu = fread(buffer, 1, sizeof(buffer), f2)) > 0) {
+        SHA256_Update(&ctx2, buffer, lu);
+    }
+    SHA256_Final(hash2, &ctx2);
+
+    fclose(f1);
+    fclose(f2);
+
+
+    if (memcmp(hash1, hash2, SHA256_DIGEST_LENGTH) == 0) {
+        printf(stdout,"\x1b[32mHASH : same\x1bn[0m\n");//green
+    } 
+    else {
+        printf(stdout,"\x1b[31mHASH : not the same\x1bn[0m\n");//red
+    }
 }
-*/
 
 //----------------------------------------------------------------------------------------------------------------
 
