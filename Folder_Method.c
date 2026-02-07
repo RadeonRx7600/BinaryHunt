@@ -108,7 +108,7 @@ int check_file(const char *file,const char *folder1, const char *folder2) {
 
 void Pathfinder(const char *folder1 , const char *folder2){
 
-    //FOLDER_FINDING __STATUS__(NOTOK)
+    //FUNCTION __STATUS__(OK)
 
     DIR *dirf1 = opendir(folder1);
     if (!dirf1) 
