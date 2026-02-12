@@ -1,9 +1,9 @@
 #include <stdio.h>
 
+//FUNCTION __STATUS(OK)__
+
 void helping_method(){  
     
-    //FUNCTION __STATUS(OK)__
-
         printf(">> Here are all the commands : \n");
         printf("\n");
         printf(" -f  --folder  | (Test two folders to see if its identical). | Syntax -> BinaryHunt -f your_folder1 your_folder2\n");
@@ -14,9 +14,12 @@ void helping_method(){
 
 }
 
-int main(){
+void default_status() {
 
-    helping_method();
-
-    return 0;
+    printf("binaryhunt - binary comparison tool\n\n");
+    printf("Usage:\n");
+    printf("  binaryhunt -f <folder1> <folder2>   Compare folders\n");
+    printf("  binaryhunt -b <file1> <file2>       Compare binaries\n");
+    printf("  binaryhunt -h                       Show detailled help\n");
+    printf("  binaryhunt -s <file1> <file2>       Future feature\n");
 }
