@@ -57,7 +57,6 @@ void SHA256test(const char *dir_file1 , const char *dir_file2)
     fclose(f1);
     fclose(f2);
 
-
     if (memcmp(hash1, hash2, SHA256_DIGEST_LENGTH) == 0) {
         fprintf(stdout, GREEN "HASH : identical" RESET "\n"); //green
         printf("\n");
