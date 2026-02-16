@@ -8,9 +8,44 @@
 // Github >> https://github.com/RadeonRx7600
 // MIT LICENSE >> https://opensource.org/license/mit ...soon
 
-int main() {
+int main(int argc, char **argv)  //  gcc -Wall -Wextra main.c Methods/*.c -o binaryhunt -lcrypto
+{
+    int opt;
+    int optind;
 
-  
-  return 0;
-  
+    if (argc < 2) {
+        default_status();
+        return EXIT_FAILURE;
+    }
+
+    while ((opt = getopt(argc, argv, "fbh")) != -1) {
+        switch (opt) {
+
+        case 'f':
+            if (optind + 1 >= argc) {
+                fprintf(stderr, "binaryhunt -f requires two folders\n");
+                return EXIT_FAILURE;
+            }
+            Pathfinder(argv[optind], argv[optind + 1]);
+            return EXIT_SUCCESS;
+
+        case 'b':
+            if (optind + 1 >= argc) {
+                fprintf(stderr, "binaryhunt -b requires two files\n");
+                return EXIT_FAILURE;
+            }
+            detect(argv[optind], argv[optind + 1]);
+            return EXIT_SUCCESS;
+
+        case 'h':
+            helping_method();
+            return EXIT_SUCCESS;
+            
+        default:
+            default_status();
+            return EXIT_SUCCESS;
+        }
+    }
+
+    return EXIT_FAILURE;
 }
